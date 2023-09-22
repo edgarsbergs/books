@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::factory(50)->create();
         Author::factory(10)->create();
+        Book::factory(50)->create();
 
         Book::all()->each(function (Book $book) {
             $purchases = rand(0, 20);
@@ -29,10 +29,5 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
-/*
-        BookPurchase::all()->each(function (BookPurchase $purchase) {
-            $purchase->update(['created_at' => Carbon::now()->subMonths(rand(0,1))]);
-        });
-*/
     }
 }
