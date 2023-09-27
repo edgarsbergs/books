@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Book;
+use App\Models\BookPurchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::get('/books/top/{limit?}', function ($limit = 10) {
+    return Book::query()->orderBy("purchases_current_month_count", "DESC")->take($limit)->get();
+});
+Route::post('/books/{book:id}/purchase', function (Book $book) {
+    return BookPurchase::create(['book_id' => $book->id]);
 });

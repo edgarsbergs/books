@@ -15,16 +15,25 @@ class Book extends Model
     protected $withCount = ['purchases', 'purchasesCurrentMonth'];
     protected $with = ['authors'];
 
+    /**
+     * @return BelongsToMany
+     */
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function purchases(): HasMany
     {
         return $this->hasMany(BookPurchase::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function purchasesCurrentMonth(): HasMany
     {
         return $this->purchases()->whereMonth("created_at", "=", Carbon::now()->month);

@@ -8,10 +8,19 @@
         </div>
         <div class="col col-9">
             <h5 class="card-title">{{ $book->title }}</h5>
-            Autori: {{ $book->authors->pluck('name')->implode(', ') }}
+            <strong>Autori:</strong>
+            @foreach ($book->authors as $author)
+                {{ $author->name }} {{ $author->surname }}
+                @if (!$loop->last)
+                    ,
+                @endif
+            @endforeach
+            <hr />
             <p class="card-text">{{ $book->description }}</p>
-            <p>Kopā nopirkts <span id="purchases_count">{{ $book->purchases_count }}</span> reizes</p>
-            <button class="btn btn-success">Pirkt</button>
+            <purchase-button :book-id='{{ $book->id }}'
+                             :purchases-count="{{ $book->purchases_count }}"
+                             :show-purchases="true"
+            ></purchase-button>
         </div>
     </div>
 

@@ -29,7 +29,7 @@ class BookFactory extends Factory
     {
         return $this->afterCreating(function (Book $book) {
             $book->authors()
-                ->attach(Author::inRandomOrder()->take(rand(0, 3))->pluck('id'));
+                ->attach(Author::query()->inRandomOrder()->take(rand(0, 3))->pluck('id'));
         });
     }
 }
