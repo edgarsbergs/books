@@ -36,6 +36,7 @@ class Book extends Model
      */
     public function purchasesCurrentMonth(): HasMany
     {
-        return $this->purchases()->whereMonth("created_at", "=", Carbon::now()->month);
+        return $this->purchases()->whereMonth("created_at", "=", Carbon::now()->month)
+                                ->whereYear("created_at", "=", Carbon::now()->year);
     }
 }
